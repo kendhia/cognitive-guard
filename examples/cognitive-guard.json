@@ -1,0 +1,48 @@
+{
+  "//": "Copy to ~/.pi/agent/cognitive-guard.json (personal) or <project>/.pi/cognitive-guard.json (team).",
+  "//2": "Rule arrays APPEND to the built-in defaults. Set \"replaceRules\": true to start from scratch instead.",
+
+  "thresholds": {
+    "quiz": 0.55,
+    "warn": 0.3
+  },
+
+  "criticalPaths": [
+    { "glob": "services/billing/**", "weight": 0.98, "label": "billing service" },
+    { "glob": "**/expense_approval*.py", "weight": 0.95, "label": "approval logic" },
+    { "glob": "infra/prod/**", "weight": 0.9, "label": "production infrastructure" }
+  ],
+
+  "familiarPaths": [
+    { "glob": "packages/api-client/generated/**", "familiarity": 0.98, "label": "generated API client" },
+    { "glob": "infra/**/outputs.ts", "familiarity": 0.85, "label": "pulumi outputs" }
+  ],
+
+  "contentMarkers": [
+    { "pattern": "\\bDecimal\\s*\\(\\s*float", "weight": 0.9, "opacityFloor": 0.85, "label": "float-to-Decimal money bug" },
+    { "pattern": "\\bskip_approval\\b|\\bbypass_check\\b", "weight": 0.95, "opacityFloor": 0.9, "label": "approval bypass" }
+  ],
+
+  "quiz": {
+    "questions": 3,
+    "passScore": 0.7,
+    "freeform": true,
+    "model": null
+  },
+
+  "engagement": {
+    "enabled": true,
+    "dwellMsPerLine": 400
+  },
+
+  "gate": {
+    "nonInteractive": "block",
+    "fallback": "attest"
+  },
+
+  "llmJudge": {
+    "enabled": true,
+    "weight": 0.5,
+    "minRiskToConsult": 0.35
+  }
+}

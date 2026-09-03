@@ -1,0 +1,22 @@
+{
+  "name": "pi-extension-cognitive-guard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pi extension that detects cognitive surrender and quizzes you before you commit code you don't understand.",
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "scripts": {
+    "check": "tsc --noEmit",
+    "test": "node --test \"test/*.ts\"",
+    "verify": "npm run check && npm test"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.4",
+    "@types/node": "^22.20.1",
+    "typescript": "^5.6.0"
+  }
+}
